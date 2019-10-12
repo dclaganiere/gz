@@ -1,4 +1,3 @@
-
 FROM ubuntu:bionic
 
 # Avoid warnings by switching to noninteractive
