@@ -2,6 +2,7 @@
 * text=auto eol=lf
 *.{cmd,[cC][mM][dD]} text eol=crlf
 *.{bat,[bB][aA][tT]} text eol=crlf
+*.{png,[pP][nN][gG]} text eol=crlf
 
 # Custom for Visual Studio
 *.cs     diff=csharp
