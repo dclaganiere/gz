@@ -28,15 +28,12 @@ RUN apt-get update \
 
 # Fetch N64 Toolchain
 RUN apt-get -y install curl unzip \
-    && curl -SL https://github.com/glankk/n64/archive/master.zip > /n64-master.zip \
-    && pwd \
-    && ls -la \
-    && unzip /n64-master.zip
+    && curl -SL https://github.com/glankk/n64/archive/master.zip > /tmp/n64-master.zip \
+    && cd /tmp \
+    && unzip /tmp/n64-master.zip
 
 # Install N64 Toolchain
-RUN cd /n64-master \
-    && pwd \
-    && ls -la \
+RUN cd /tmp/n64-master \
     && chmod +x ./install_deps ./configure \
     && ./install_deps \
     && ./configure --prefix=/opt/n64 --enable-vc \
@@ -49,15 +46,12 @@ ENV PATH /opt/n64/bin:$PATH
 
 # Fetch GZInject
 RUN apt-get -y install curl unzip \
-    && curl -SL https://github.com/krimtonz/gzinject/archive/master.zip > /gzinject-master.zip \
-    && pwd \
-    && ls -la \
-    && unzip /gzinject-master.zip
+    && curl -SL https://github.com/krimtonz/gzinject/archive/master.zip > /tmp/gzinject-master.zip \
+    && cd /tmp \
+    && unzip /tmp/gzinject-master.zip
 
 # Install GZInject
-RUN cd /gzinject-master \
-    && pwd \
-    && ls -la \
+RUN cd /tmp/gzinject-master \
     && chmod +x ./configure \
     && ./configure --prefix=/opt/gzinject \
     && make \
@@ -69,10 +63,10 @@ ENV PATH /opt/gzinject/bin:$PATH
 RUN apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /n64-master \
-    && rm -f /n64-master.zip \
-    && rm -rf /gzinject-master \
-    && rm -f /gzinject-master.zip
+    && rm -rf /tmp/n64-master \
+    && rm -f /tmp/n64-master.zip \
+    && rm -rf /tmp/gzinject-master \
+    && rm -f /tmp/gzinject-master.zip
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=
